@@ -1,0 +1,59 @@
+﻿@model IEnumerable<TestApp1.Models.Tasks>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+<div class="container mt-4">
+    <h1 class="mb-4 text-dark">Список задач</h1>
+
+    <p>
+        <a class="btn btn-success" asp-action="Create" style="background-color: #5cb85c; border-color: #4cae4c;">
+            <span class="glyphicon glyphicon-plus"></span> Создать новую
+        </a>
+    </p>
+    <p>
+        <table id="Tasks" class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col" class="border-0">Название</th>
+                    <th scope="col" class="border-0">Описание</th>
+                    <th scope="col" class="border-0">Дата создания</th>
+                    <th scope="col" class="border-0">Дата завершения</th>
+                    <th scope="col" class="border-0">Выполнено</th>
+                    <th scope="col" class="border-0">Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="border-0">@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td class="border-0">@Html.DisplayFor(modelItem => item.Description)</td>
+                        <td class="border-0">@Html.DisplayFor(modelItem => item.CreationDate)</td>
+                        <td class="border-0">@Html.DisplayFor(modelItem => item.FinishedDate)</td>
+                        <td class="border-0">
+                            <span class="label @(item.IsCompleted ? "label-success" : "label-default")">
+                                <span class="glyphicon glyphicon-ok glyphicon-lg"></span>
+                            </span>
+                        </td>
+                        <td class="border-0">
+                            <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@item.Id">
+                                <span class="glyphicon glyphicon-pencil"></span> Изменить
+                            </a>
+                            <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.Id">
+                                <span class="glyphicon glyphicon-info-sign"></span> Подробности
+                            </a>
+                            <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">
+                                <span class="glyphicon glyphicon-trash"></span> Удалить
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </p>
+</div>
